@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynotes_ffc_vandad/views/register_view.dart';
 import 'views/home_page.dart';
 
 void main() async {
@@ -20,6 +21,10 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+      routes: {
+        '/login/': (context) => const HomePage(),
+        '/register/': (context) => const RegisterView(),
+      },
       home: const HomePage(),
     );
   }
