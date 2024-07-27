@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:756046299299:android:53f1e4da7ac6b275a6bf16",
+        "mobilesdk_app_id": "process.env.APP_ID",
         "android_client_info": {
           "package_name": "com.example.mynotes_ffc_vandad"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBAXlXWq0qgE7mq5uSSe6EmPjHRZX45CvM"
+          "current_key": "process.env.API_KEY"
         }
       ],
       "services": {
