@@ -1,6 +1,7 @@
 /lib/firebase_options.dart
 firebase.json
 .env
+/android/app/google-services.json
 
 # Miscellaneous
 *.class
