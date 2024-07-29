@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as devtools show log;
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -33,20 +34,21 @@ class _RegisterViewState extends State<RegisterView> {
         email: _email.text,
         password: _password.text,
       );
-      debugPrint('Successfully registered in as ${userCredential.user?.email}');
+      devtools
+          .log('Successfully registered in as ${userCredential.user?.email}');
     } on FirebaseAuthException catch (e) {
-      debugPrint('FirebaseAuthException: ${e.code} - ${e.message}');
+      devtools.log('FirebaseAuthException: ${e.code} - ${e.message}');
       if (e.code == 'user-not-found') {
-        debugPrint('No user found for that email.');
+        devtools.log('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        debugPrint('Wrong password provided for that user.');
+        devtools.log('Wrong password provided for that user.');
       } else if (e.code == 'invalid-email') {
-        debugPrint('The email address is badly formatted.');
+        devtools.log('The email address is badly formatted.');
       } else {
-        debugPrint('Something went wrong: ${e.message}');
+        devtools.log('Something went wrong: ${e.message}');
       }
     } catch (e) {
-      debugPrint('General Exception: $e');
+      devtools.log('General Exception: $e');
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as devtools show log;
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -28,25 +29,28 @@ class _LoginViewState extends State<LoginView> {
 
   Future<void> _login() async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _email.text,
         password: _password.text,
       );
-      debugPrint('Successfully logged in as ${userCredential.user?.email}');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/notes/',
+        (route) => false,
+      );
     } on FirebaseAuthException catch (e) {
-      debugPrint('FirebaseAuthException: ${e.code} - ${e.message}');
+      devtools.log('FirebaseAuthException: ${e.code} - ${e.message}');
       if (e.code == 'user-not-found') {
-        debugPrint('No user found for that email.');
+        devtools.log('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        debugPrint('Wrong password provided for that user.');
+        devtools.log('Wrong password provided for that user.');
       } else if (e.code == 'invalid-email') {
-        debugPrint('The email address is badly formatted.');
+        devtools.log('The email address is badly formatted.');
       } else {
-        debugPrint('Something went wrong: ${e.message}');
+        devtools.log('Something went wrong: ${e.message}');
       }
     } catch (e) {
-      debugPrint('General Exception: $e');
+      devtools.log('General Exception: $e');
     }
   }
 
