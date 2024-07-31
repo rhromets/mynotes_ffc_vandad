@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 import 'package:mynotes_ffc_vandad/constants/routes.dart';
+import 'package:mynotes_ffc_vandad/utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -39,17 +40,28 @@ class _RegisterViewState extends State<RegisterView> {
           .log('Successfully registered in as ${userCredential.user?.email}');
     } on FirebaseAuthException catch (e) {
       devtools.log('FirebaseAuthException: ${e.code} - ${e.message}');
-      if (e.code == 'user-not-found') {
-        devtools.log('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        devtools.log('Wrong password provided for that user.');
-      } else if (e.code == 'invalid-email') {
-        devtools.log('The email address is badly formatted.');
-      } else {
-        devtools.log('Something went wrong: ${e.message}');
-      }
+      await _handleFirebaseAuthException(e);
     } catch (e) {
-      devtools.log('General Exception: $e');
+      if (mounted) {
+        showErrorDialog(context, 'General error: $e');
+      }
+      devtools.log('General error: $e');
+    }
+  }
+
+  Future<void> _handleFirebaseAuthException(FirebaseAuthException e) async {
+    if (e.code == 'weak-password') {
+      showErrorDialog(context, 'Weak password');
+      devtools.log('Weak-password.');
+    } else if (e.code == 'email-already-in-use') {
+      showErrorDialog(context, 'Email is already in use');
+      devtools.log('Email is already in use.');
+    } else if (e.code == 'invalid-email') {
+      showErrorDialog(context, 'The email address is invalid');
+      devtools.log('The email address is invalid.');
+    } else {
+      showErrorDialog(context, 'Something went wrong: ${e.message}');
+      devtools.log('Something went wrong: ${e.message}');
     }
   }
 
@@ -91,7 +103,7 @@ class _RegisterViewState extends State<RegisterView> {
               );
             },
             child: const Text('Already registered? Login here!'),
-        ),
+          ),
         ],
       ),
     );
