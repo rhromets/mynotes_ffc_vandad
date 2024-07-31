@@ -31,13 +31,13 @@ class _RegisterViewState extends State<RegisterView> {
 
   Future<void> _register() async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email.text,
         password: _password.text,
       );
-      devtools
-          .log('Successfully registered in as ${userCredential.user?.email}');
+      final user = FirebaseAuth.instance.currentUser;
+      user?.sendEmailVerification();
+      Navigator.of(context).pushNamed(verifyEmailRoute);
     } on FirebaseAuthException catch (e) {
       devtools.log('FirebaseAuthException: ${e.code} - ${e.message}');
       await _handleFirebaseAuthException(e);

@@ -3,6 +3,7 @@ import 'package:mynotes_ffc_vandad/constants/routes.dart';
 import 'package:mynotes_ffc_vandad/views/login_view.dart';
 import 'package:mynotes_ffc_vandad/views/notes_view.dart';
 import 'package:mynotes_ffc_vandad/views/register_view.dart';
+import 'package:mynotes_ffc_vandad/views/verify_email_view.dart';
 import 'views/home_page.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
+        verifyEmailRoute: (context) => const VerifyEmailView(),
       },
       home: const HomePage(),
     );
