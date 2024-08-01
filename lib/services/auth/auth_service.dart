@@ -12,7 +12,9 @@ class AuthService implements AuthProvider {
       );
 
   @override
-  Future<void> initialize() => provider.initialize();
+  Future<void> initialize() async {
+    return await provider.initialize();
+  } 
 
   @override
   Future<AuthUser> createUser({
