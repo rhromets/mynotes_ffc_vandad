@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as devtools show log;
 import 'package:mynotes_ffc_vandad/constants/routes.dart';
+import 'package:mynotes_ffc_vandad/services/auth/auth_exceptions.dart';
+import 'package:mynotes_ffc_vandad/services/auth/auth_service.dart';
 import 'package:mynotes_ffc_vandad/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
@@ -31,12 +31,12 @@ class _LoginViewState extends State<LoginView> {
 
   Future<void> _login(BuildContext context) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await AuthService.firebase().logIn(
         email: _email.text,
         password: _password.text,
       );
-      final user = FirebaseAuth.instance.currentUser;
-      if (user?.emailVerified ?? false) {
+      final user = AuthService.firebase().currentUser;
+      if (user?.isEmailVerified ?? false) {
         // user email is verified
         Navigator.of(context).pushNamedAndRemoveUntil(
           notesRoute,
@@ -49,37 +49,26 @@ class _LoginViewState extends State<LoginView> {
           (route) => false,
         );
       }
-    } on FirebaseAuthException catch (e) {
-      devtools.log('FirebaseAuthException: ${e.code} - ${e.message}');
-      devtools.log('Additional Information: ${e.credential}, ${e.email}');
-      await _handleFirebaseAuthException(e);
-    } catch (e) {
-      devtools.log('General error: $e');
-      if (mounted) {
-        showErrorDialog(context, 'General error: $e');
-      }
-    }
-  }
-
-  Future<void> _handleFirebaseAuthException(FirebaseAuthException e) async {
-    if (e.code == 'user-not-found') {
-      await showErrorDialog(context, 'User not found');
-      devtools.log('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
-      await showErrorDialog(context, 'Wrong password');
-      devtools.log('Wrong password provided for that user.');
-    } else if (e.code == 'invalid-email') {
-      await showErrorDialog(context, 'The email address is badly formatted.');
-      devtools.log('The email address is badly formatted.');
-    } else if (e.code == 'invalid-credential') {
+    } on UserNotFoundAuthException {
+      await showErrorDialog(
+        context,
+        'User not found',
+      );
+    } on WrongPasswordAuthException {
+      await showErrorDialog(
+        context,
+        'Wrong password',
+      );
+    } on InvalidCredentialAuthException {
       await showErrorDialog(context,
-          'The supplied auth credential is incorrect, malformed or has expired.');
-      devtools.log(
-          'The supplied auth credential is incorrect, malformed or has expired.');
-    } else {
-      await showErrorDialog(context, 'Something went wrong: ${e.message}');
-      devtools.log('Something went wrong: ${e.message}');
-    }
+        'The supplied auth credential is incorrect, malformed or has expired.',
+      );
+    } on GenericAuthException {
+      await showErrorDialog(
+        context,
+        'Authentication error',
+      );
+    } 
   }
 
   @override
