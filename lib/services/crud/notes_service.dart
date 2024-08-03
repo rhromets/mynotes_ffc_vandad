@@ -32,7 +32,7 @@ class NotesService {
 
   List<DatabaseNote> _notes = [];
 
-  // make NotesService a singleton
+  // Singleton pattern
   static final NotesService _shared = NotesService._sharedInstance();
   NotesService._sharedInstance();
   factory NotesService() => _shared;
@@ -246,7 +246,7 @@ class NotesService {
     try {
       await open();
     } on DatabaseAlreadyOpenException {
-      throw DatabaseIsNotOpen();
+      return;
     }
   }
 
