@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes_ffc_vandad/constants/routes.dart';
 import 'package:mynotes_ffc_vandad/views/login_view.dart';
-import 'package:mynotes_ffc_vandad/views/notes_view.dart';
+import 'package:mynotes_ffc_vandad/views/notes/notes_view.dart';
 import 'package:mynotes_ffc_vandad/views/register_view.dart';
 import 'package:mynotes_ffc_vandad/views/verify_email_view.dart';
 import 'views/home_page.dart';
