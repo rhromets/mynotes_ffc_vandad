@@ -50,7 +50,6 @@ class _NewNoteViewState extends State<NewNoteView> {
       final newNote = await _notesService.createNote(owner: owner);
       return newNote;
     } catch (e) {
-      // Handle and log the error if necessary
       throw Exception('Error creating note: ${e.toString()}');
     }
   }
