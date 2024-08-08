@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mynotes_ffc_vandad/main.dart';
+import 'package:mynotes_ffc_vandad/counter/bloc/testing_bloc.dart';
+import 'package:mynotes_ffc_vandad/counter/bloc/testing_event.dart';
+import 'package:mynotes_ffc_vandad/counter/bloc/testing_state.dart';
 
 class Testing extends StatefulWidget {
   const Testing({super.key});
