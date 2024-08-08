@@ -42,8 +42,8 @@ class _NotesViewState extends State<NotesView> {
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               if (value == MenuAction.logout) {
-                  final shouldLogout = await showLogOutDialog(context);
-                  if (shouldLogout) {
+                final shouldLogout = await showLogOutDialog(context);
+                if (shouldLogout) {
                   context.read<AuthBloc>().add(
                         const AuthEventLogOut(),
                       );
@@ -82,10 +82,10 @@ class _NotesViewState extends State<NotesView> {
                   },
                 );
               } else {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               }
             default:
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
           }
         },
       ),
