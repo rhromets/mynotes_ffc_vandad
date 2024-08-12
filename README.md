@@ -1,17 +1,21 @@
-# Flutter Notes App
+# Flutter Notes App (Android)
 
 This Flutter project is a learning application developed during the course of completing the [Lab: "Free Flutter Course (Full Flutter Course for Beginners)"](https://www.youtube.com/playlist?list=PL6yRaaP0WPkVtoeNIGqILtRAgd3h2CNpT).
 It showcases a robust note-taking application integrated with SQLite, Firebase Authentication, and Cloud Firestore. 
 Users can register and log in securely using their email and password, complete with email verification. 
 Key features include creating, editing, deleting notes, and sharing them via the share_plus package.
 
+## Overview:
+
+![A screenshot showing app](/assets/desc_screenshots/Screenshot_hor.png)
+
 ## Features:
 
-  **User Authentication:** Secure user registration and login using Firebase Authentication with email & password.
-  **Email Verification:** Verify user email.
-  **Note Management:** Create, edit, and delete notes.
-  **Cloud Sync:** Sync notes across devices using Cloud Firestore to ensure data consistency.
-  **Note Sharing:** Share notes seamlessly with others through the share_plus package.
+- **User Authentication:** Secure user registration and login using Firebase Authentication with email & password.
+- **Email Verification:** Verify user email.
+- **Note Management:** Create, edit, and delete notes.
+- **Cloud Sync:** Sync notes across devices using Cloud Firestore to ensure data consistency.
+- **Note Sharing:** Share notes seamlessly with others through the share_plus package.
 
 ## Technologies Used:
 
